@@ -77,7 +77,8 @@ func (d *Driver) CreateFileShare(opt *pb.CreateFileShareOpts) (*model.FileShareS
 	fsName := opt.GetName()
 	size := opt.GetSize()
 	poolID := opt.GetPoolName()
-	shareProto := opt.GetAccessProtocol()
+	//shareProto := opt.GetAccessProtocol()
+	shareProto := "nfs"
 
 	err := d.parameterCheck(poolID, size, &fsName, &shareProto)
 	if err != nil {
@@ -312,8 +313,8 @@ func (d *Driver) getFSInfo(fsName string) (*FileSystemData, error) {
 }
 
 func (d *Driver) DeleteFileShare(opt *pb.DeleteFileShareOpts) error {
-	shareProto := opt.GetAccessProtocol()
-
+	//shareProto := opt.GetAccessProtocol()
+	shareProto := "nfs"
 	meta := opt.GetMetadata()
 	if meta == nil || (meta != nil && meta[FileShareName] == "" && meta[FileShareID] == "") {
 		msg := "cannot get file share name and id"
@@ -478,8 +479,8 @@ func (d *Driver) CreateFileShareAclParamCheck(opt *pb.CreateFileShareAclOpts) (s
 		return "", "", "", "", errors.New("fileshare name cannot be empty")
 	}
 
-	shareProto := opt.GetAccessProtocol()
-
+	//shareProto := opt.GetAccessProtocol()
+	shareProto := "nfs"
 	if !checkProtocol(shareProto) {
 		return "", "", "", "", fmt.Errorf("%s protocol is not supported, support is NFS and CIFS", shareProto)
 	}
@@ -631,8 +632,8 @@ func (d *Driver) DeleteFileShareAclParamCheck(opt *pb.DeleteFileShareAclOpts) (s
 	}
 
 	fsName := meta[FileShareName]
-	shareProto := opt.GetAccessProtocol()
-
+	//shareProto := opt.GetAccessProtocol()
+	shareProto := "nfs"
 	if !checkProtocol(shareProto) {
 		return "", "", "", fmt.Errorf("%s protocol is not supported, support is NFS and CIFS", shareProto)
 	}

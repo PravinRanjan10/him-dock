@@ -151,8 +151,8 @@ func (d *Driver) ListPools() ([]*model.StoragePoolSpec, error) {
 
 // CreateFileShare implementation
 func (d *Driver) CreateFileShare(opt *pb.CreateFileShareOpts) (*model.FileShareSpec, error) {
-	shareProto := opt.GetAccessProtocol()
-
+	//shareProto := opt.GetAccessProtocol()
+	shareProto := "nfs"
 	// Configure create request body.
 	opts := &sharesv2.CreateOpts{
 		ShareProto:  shareProto,
